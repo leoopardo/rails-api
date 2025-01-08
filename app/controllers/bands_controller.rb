@@ -5,12 +5,12 @@ class BandsController < ApplicationController
   def index
     @bands = Band.all
 
-    render json: @bands.to_json(only: [ :name, :id ], include: { members: { only: [ :name, :id ] }, genres: { only: [ :name, :id ] } },)
+    render json: @bands
   end
 
   # GET /bands/1
   def show
-    render json: @band.to_json(only: [ :name, :id ], include: { members: { only: [ :name, :id ] }, genres: { only: [ :name, :id ] } },)
+    render json: @band
   end
 
   # POST /bands

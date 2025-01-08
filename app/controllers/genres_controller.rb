@@ -5,7 +5,7 @@ class GenresController < ApplicationController
   def index
     @genres = Genre.all
 
-    render json: @genres.to_json(only: [ :name, :id ], include: { bands: { only: [ :name, :id ] } })
+    render json: @genres
   end
 
   # GET /genres/1
