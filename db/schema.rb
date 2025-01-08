@@ -10,11 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_08_120947) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_08_131650) do
+  create_table "albums", force: :cascade do |t|
+    t.integer "band_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["band_id"], name: "index_albums_on_band_id"
+  end
+
   create_table "bands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bands_genres", id: false, force: :cascade do |t|
+    t.integer "band_id", null: false
+    t.integer "genre_id", null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "members", force: :cascade do |t|
@@ -25,5 +44,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_08_120947) do
     t.index ["band_id"], name: "index_members_on_band_id"
   end
 
+  create_table "songs", force: :cascade do |t|
+    t.integer "band_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["band_id"], name: "index_songs_on_band_id"
+  end
+
+  add_foreign_key "albums", "bands"
   add_foreign_key "members", "bands"
+  add_foreign_key "songs", "bands"
 end

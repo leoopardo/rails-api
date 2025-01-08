@@ -5,12 +5,12 @@ class MembersController < ApplicationController
   def index
     @members = Member.all
 
-    render json: @members, only: [ :name, :id ], include: [ :band ]
+    render json: @members.to_json(only: [ :name, :id ], include: { band: { only: [ :name, :id ] } })
   end
 
   # GET /members/1
   def show
-    render json: @member
+    render json: @member.to_json(only: [ :name, :id ], include: { band: { only: [ :name, :id ] } })
   end
 
   # POST /members

@@ -1,16 +1,16 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: %i[ show update destroy ]
+  before_action :set_band, only: %i[show update destroy]
 
   # GET /bands
   def index
     @bands = Band.all
 
-    render json: @bands, only: [ :name, :id ], include: [ :members ]
+    render json: @bands.to_json(only: [ :name, :id ], include: { members: { only: [ :name, :id ] }, genres: { only: [ :name, :id ] } },)
   end
 
   # GET /bands/1
   def show
-    render json: @band
+    render json: @band.to_json(only: [ :name, :id ], include: { members: { only: [ :name, :id ] }, genres: { only: [ :name, :id ] } },)
   end
 
   # POST /bands
@@ -39,13 +39,14 @@ class BandsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_band
-      @band = Band.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def band_params
-      params.expect(band: [ :name ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_band
+    @band = Band.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def band_params
+    params.require(:band).permit(:name)
+  end
 end
