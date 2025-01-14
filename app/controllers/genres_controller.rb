@@ -5,7 +5,7 @@ class GenresController < ApplicationController
   def index
     @genres = Genre.all
 
-    render json: @genres
+    paginate(@genres, serializer: GenreSerializer)
   end
 
   # GET /genres/1

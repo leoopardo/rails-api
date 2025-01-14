@@ -5,7 +5,7 @@ class BandsController < ApplicationController
   def index
     @bands = Band.all
 
-    render json: @bands
+    paginate(@bands, serializer: BandSerializer)
   end
 
   # GET /bands/1

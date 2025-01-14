@@ -22,6 +22,8 @@ gem "solid_cable"
 
 gem "active_model_serializers", "~> 0.10.15"
 
+gem "kaminari"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

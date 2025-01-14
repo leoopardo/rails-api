@@ -5,7 +5,7 @@ class AlbumsController < ApplicationController
   def index
     @albums = Album.all
 
-    render json: @albums
+    paginate(@albums, serializer: AlbumSerializer)
   end
 
   # GET /albums/1
